@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+	<WeaponStats.Ground>Ground</WeaponStats.Ground>
+	<WeaponStats.Colonists>Colonists</WeaponStats.Colonists>
+	<WeaponStats.Prisoners>Prisoners</WeaponStats.Prisoners>
+	<WeaponStats.Hostiles>Hostiles</WeaponStats.Hostiles>
+	<WeaponStats.Friendlies>Friendlies</WeaponStats.Friendlies>
+	<WeaponStats.Corpses>Corpses</WeaponStats.Corpses>
+	<WeaponStats.All>All</WeaponStats.All>
+	<WeaponStats.Craftable>Craftable</WeaponStats.Craftable>
+	
+	<WeaponStats.Ranged>Ranged</WeaponStats.Ranged>
+	<WeaponStats.Melee>Melee</WeaponStats.Melee>
+	<WeaponStats.Grenades>Grenades</WeaponStats.Grenades>
+	<WeaponStats.Apparel>Apparel</WeaponStats.Apparel>
+	<WeaponStats.Other>Other</WeaponStats.Other>
+
+</LanguageData>

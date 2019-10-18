@@ -1,0 +1,4 @@
+/home/bodlosh/Repositories/rimworld-mods/WeaponsTab/Assemblies/WeaponsTab.dll
+/home/bodlosh/Repositories/rimworld-mods/WeaponsTab/Source/WeaponsTab/obj/Release/WeaponsTab.csprojAssemblyReference.cache
+/home/bodlosh/Repositories/rimworld-mods/WeaponsTab/Source/WeaponsTab/obj/Release/WeaponsTab.csproj.CoreCompileInputs.cache
+/home/bodlosh/Repositories/rimworld-mods/WeaponsTab/Source/WeaponsTab/obj/Release/WeaponsTab.dll

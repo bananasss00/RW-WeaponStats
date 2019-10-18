@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+    <name>WeaponStats</name>
+    <author>bodlosh</author>
+    <url></url>
+    <supportedVersions>
+        <li>1.0</li>
+    </supportedVersions>
+    <description>
+        Adds a "Weapons" tab - list of ranged, melee, explosive weapons and apparel. Source code included.
+    </description>
+</ModMetaData>

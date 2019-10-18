@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+	<WeaponStats.Ground>На земле</WeaponStats.Ground>
+	<WeaponStats.Colonists>Колонисты</WeaponStats.Colonists>
+	<WeaponStats.Prisoners>Заключенные</WeaponStats.Prisoners>
+	<WeaponStats.Hostiles>Враги</WeaponStats.Hostiles>
+	<WeaponStats.Friendlies>Союзники</WeaponStats.Friendlies>
+	<WeaponStats.Corpses>Трупы</WeaponStats.Corpses>
+	<WeaponStats.All>Все</WeaponStats.All>
+	
+	<WeaponStats.Ranged>Оружие дальнего боя</WeaponStats.Ranged>
+	<WeaponStats.Melee>Оружие ближнего боя</WeaponStats.Melee>
+	<WeaponStats.Grenades>Гранаты</WeaponStats.Grenades>
+	<WeaponStats.Apparel>Одежда</WeaponStats.Apparel>
+	<WeaponStats.Other>Oстальные</WeaponStats.Other>
+
+</LanguageData>

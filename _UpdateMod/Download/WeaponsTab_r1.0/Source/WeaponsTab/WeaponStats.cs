@@ -40,19 +40,13 @@ namespace WeaponStats
 		private bool showEquippedH = false;
 		private bool showEquippedF = false;
 		private bool showEquippedC = false;
-		private bool showCraftable = false;
-	    private bool showAll = false;
 
-        private bool isDirty = true;
+		private bool isDirty = true;
 		private int listUpdateNext = 0;
 
 		public Vector2 scrollPosition = Vector2.zero;
 		private float scrollViewHeight;
 		private float tableHeight;
-
-		private TemperatureDisplayMode tdm;
-		private string tempUnit;
-		private float tempCoeff;
 
 		private enum WeaponsTab : byte
 		{
@@ -86,8 +80,6 @@ namespace WeaponStats
 			this.closeOnClickedOutside = true;
 			this.sortProperty = "marketValue";
 			this.sortOrder = "DESC";
-			this.tdm = Prefs.TemperatureMode;
-		
 		}
 
 		private int GetStartingWidth ()
@@ -230,7 +222,7 @@ namespace WeaponStats
 
 		private void DoApparelPage (Rect rect, int count, List<Apparel> apparelList)
 		{
-			colDef[] apparelHeaders = new colDef[10] {
+			colDef[] apparelHeaders = new colDef[8] {
 				new colDef ("Quality", "qualityNum"),
 				new colDef ("HP", "hp"),
 				new colDef ("Value", "marketValue"),
@@ -238,9 +230,7 @@ namespace WeaponStats
 				new colDef ("Sharp", "armorSharp"),
 				new colDef ("Heat", "armorHeat"),
 				new colDef ("ICold", "insulation"),
-				new colDef ("IHeat", "insulationh"),
-				new colDef ("Work", "workSpeed"),
-				new colDef ("Learn", "learnFactor")
+				new colDef ("IHeat", "insulationh")
 			};
 			rect.y += 30;
 			GUI.BeginGroup (rect);
@@ -289,59 +279,27 @@ namespace WeaponStats
 					Find.WindowStack.Add (dlg);
 				}
 			}
-
-			if (w.craftable)
-			{
-				if (Widgets.ButtonInvisible(new Rect(20, ROW_HEIGHT * rowNum, rowWidth, ROW_HEIGHT)))
-				{
-					RimWorld.Planet.GlobalTargetInfo gti = new RimWorld.Planet.GlobalTargetInfo(w.cratablePos);
-					CameraJumper.TryJumpAndSelect(gti);
-				}
-				Texture2D pawnIcon = ContentFinder<Texture2D>.Get("UI/Icons/Craftable", true);
-				Rect p = new Rect(0, ROW_HEIGHT * rowNum + (ROW_HEIGHT - pawnIcon.height) / 2,
-					(float) pawnIcon.width, (float) pawnIcon.height);
-				GUI.DrawTexture(p, pawnIcon);
-				TooltipHandler.TipRegion(p, w.cratablePos.def.label);
+			if (Widgets.ButtonInvisible (new Rect (20, ROW_HEIGHT * rowNum, rowWidth, ROW_HEIGHT))) {
+				RimWorld.Planet.GlobalTargetInfo gti = new RimWorld.Planet.GlobalTargetInfo (t);
+				CameraJumper.TryJumpAndSelect (gti);
 			}
-			else
-			{
-				if (Widgets.ButtonInvisible(new Rect(20, ROW_HEIGHT * rowNum, rowWidth, ROW_HEIGHT)))
-				{
-					RimWorld.Planet.GlobalTargetInfo gti = new RimWorld.Planet.GlobalTargetInfo(t);
-					CameraJumper.TryJumpAndSelect(gti);
+			if (w.pawn != null) {
+				Texture2D pawnIcon;
+				if (w.pawnType == "prisoner") {
+					pawnIcon = ContentFinder<Texture2D>.Get ("UI/Icons/Prisoner", true);
+				} else if (w.pawnType == "hostile") {
+					pawnIcon = ContentFinder<Texture2D>.Get ("UI/Icons/Hostile", true);
+				} else if (w.pawnType == "friendly") {
+					pawnIcon = ContentFinder<Texture2D>.Get ("UI/Icons/Friendly", true);
+				} else if (w.pawnType == "corpse") {
+					pawnIcon = ContentFinder<Texture2D>.Get ("UI/Icons/Corpse", true);
+				} else {
+					pawnIcon = ContentFinder<Texture2D>.Get ("UI/Icons/Colonist", true);
 				}
-
-				if (w.pawn != null)
-				{
-					Texture2D pawnIcon;
-					if (w.pawnType == "prisoner")
-					{
-						pawnIcon = ContentFinder<Texture2D>.Get("UI/Icons/Prisoner", true);
-					}
-					else if (w.pawnType == "hostile")
-					{
-						pawnIcon = ContentFinder<Texture2D>.Get("UI/Icons/Hostile", true);
-					}
-					else if (w.pawnType == "friendly")
-					{
-						pawnIcon = ContentFinder<Texture2D>.Get("UI/Icons/Friendly", true);
-					}
-					else if (w.pawnType == "corpse")
-					{
-						pawnIcon = ContentFinder<Texture2D>.Get("UI/Icons/Corpse", true);
-					}
-					else
-					{
-						pawnIcon = ContentFinder<Texture2D>.Get("UI/Icons/Colonist", true);
-					}
-
-					Rect p = new Rect(0, ROW_HEIGHT * rowNum + (ROW_HEIGHT - pawnIcon.height) / 2,
-						(float) pawnIcon.width, (float) pawnIcon.height);
-					GUI.DrawTexture(p, pawnIcon);
-					TooltipHandler.TipRegion(p, w.pawn);
-				}
+				Rect p = new Rect (0, ROW_HEIGHT * rowNum + (ROW_HEIGHT - pawnIcon.height) / 2, (float)pawnIcon.width, (float)pawnIcon.height);
+				GUI.DrawTexture (p, pawnIcon);
+				TooltipHandler.TipRegion (p, w.pawn);
 			}
-
 			Rect icoRect = new Rect (PAWN_WIDTH + 2, ROW_HEIGHT * rowNum, ICON_WIDTH, ICON_WIDTH);
 			Widgets.ThingIcon (icoRect, w.thing);
 			return PAWN_WIDTH + ICON_WIDTH + 2;
@@ -460,13 +418,9 @@ namespace WeaponStats
 			ww += STAT_WIDTH;
 			printCell (Math.Round (t.armorHeat * 100, 1), num, ww, STAT_WIDTH, "%");
 			ww += STAT_WIDTH;
-			printCell (Math.Round (t.insulation * this.tempCoeff, 1), num, ww, STAT_WIDTH, this.tempUnit);
+			printCell (Math.Round (t.insulation, 1), num, ww, STAT_WIDTH, "°C");
 			ww += STAT_WIDTH;
-			printCell (Math.Round (t.insulationh * this.tempCoeff, 1), num, ww, STAT_WIDTH, this.tempUnit);
-			ww += STAT_WIDTH;
-			printCell (Math.Round(t.workSpeed * 100, 1), num, ww, STAT_WIDTH, "%");
-			ww += STAT_WIDTH;
-			printCell (Math.Round(t.learnFactor * 100, 1), num, ww, STAT_WIDTH, "%");
+			printCell (Math.Round (t.insulationh, 1), num, ww, STAT_WIDTH, "°C");
 			ww += STAT_WIDTH;
 		}
 
@@ -513,9 +467,7 @@ namespace WeaponStats
 
 		private WeaponsTab getAppropriateTab (Thing th)
 		{
-			try
-			{
-				if (th.def.IsApparel) return WeaponsTab.Apparel;
+			try {
 				if (th.def.IsRangedWeapon) {
 					bool IsGrenade = false;
 					foreach (ThingCategoryDef tc in th.def.thingCategories) {
@@ -526,14 +478,14 @@ namespace WeaponStats
 					}
 					return IsGrenade ? WeaponsTab.Grenades : WeaponsTab.Ranged;
 				} else if (th.def.IsMeleeWeapon) {
-				    bool IsRealMelee = !th.def.IsStuff && !th.def.CountAsResource;
-                    //foreach (ThingCategoryDef tc in th.def.thingCategories) {
-                    //	if (tc.defName.StartsWith("WeaponsMelee")) {
-                    //		IsRealMelee = true;
-                    //		break;
-                    //	}
-                    //}
-                    return IsRealMelee ? WeaponsTab.Melee : WeaponsTab.Other;
+					bool IsRealMelee = false;
+					foreach (ThingCategoryDef tc in th.def.thingCategories) {
+						if (tc.defName == "WeaponsMelee") {
+							IsRealMelee = true;
+							break;
+						}
+					}
+					return IsRealMelee ? WeaponsTab.Melee : WeaponsTab.Other;
 				} else {
 					return WeaponsTab.Other;
 				}
@@ -566,61 +518,55 @@ namespace WeaponStats
 			Apparel tmpApparel;
 			WeaponsTab tb;
 			if (this.showGround) {
-				foreach (Thing th in Lister.Weapons(!showAll)) {
-					if (!th.Position.Fogged (Find.CurrentMap)) {
-						tb = this.getAppropriateTab (th);
-						switch (tb) {
-						case WeaponsTab.Ranged:
-							tmpRanged = new RangedWeapon ();
-							tmpRanged.fillFromThing (th);
-							rangedList.Add (tmpRanged);
-							rangedCount++;
-							break;
-						case WeaponsTab.Melee:
-							tmpMelee = new MeleeWeapon ();
-							tmpMelee.fillFromThing (th);
-							meleeList.Add (tmpMelee);
-							meleeCount++;
-							break;
-						case WeaponsTab.Grenades:
-							tmpGrenade = new GrenadeWeapon ();
-							tmpGrenade.fillFromThing (th);
-							grenadeList.Add (tmpGrenade);
-							grenadeCount++;
-							break;
-						case WeaponsTab.Other:
-							tmpOther = new OtherWeapon ();
-							tmpOther.fillFromThing (th);
-							otherList.Add (tmpOther);
-							otherCount++;
-							break;
-						}
+				foreach (Thing th in Find.CurrentMap.listerThings.ThingsInGroup(ThingRequestGroup.Weapon)) {
+					tb = this.getAppropriateTab (th);
+					switch (tb) {
+					case WeaponsTab.Ranged:
+						tmpRanged = new RangedWeapon ();
+						tmpRanged.fillFromThing (th);
+						rangedList.Add (tmpRanged);
+						rangedCount++;
+						break;
+					case WeaponsTab.Melee:
+						tmpMelee = new MeleeWeapon ();
+						tmpMelee.fillFromThing (th);
+						meleeList.Add (tmpMelee);
+						meleeCount++;
+						break;
+					case WeaponsTab.Grenades:
+						tmpGrenade = new GrenadeWeapon ();
+						tmpGrenade.fillFromThing (th);
+						grenadeList.Add (tmpGrenade);
+						grenadeCount++;
+						break;
+					case WeaponsTab.Other:
+						tmpOther = new OtherWeapon ();
+						tmpOther.fillFromThing (th);
+						otherList.Add (tmpOther);
+						otherCount++;
+						break;
 					}
 				}
-				foreach (Thing th in Lister.Apparels(!showAll)) {
-					if (!th.Position.Fogged (Find.CurrentMap)) {
-						tmpApparel = new Apparel ();
-						tmpApparel.fillFromThing (th);
-						apparelList.Add (tmpApparel);
-						apparelCount++;
-					}
+				foreach (Thing th in Find.CurrentMap.listerThings.ThingsInGroup(ThingRequestGroup.Apparel)) {
+					tmpApparel = new Apparel ();
+					tmpApparel.fillFromThing (th);
+					apparelList.Add (tmpApparel);
+					apparelCount++;
 				}
 			}
 
 			// Corpses
 			if (this.showEquippedC) {
 				Corpse corpse;
-				foreach (Thing th in Lister.Corpses()) {
+				foreach (Thing th in Find.CurrentMap.listerThings.ThingsInGroup(ThingRequestGroup.Corpse)) {
 					corpse = (Corpse)th;
-						if (corpse.InnerPawn.apparel != null && !th.Position.Fogged (Find.CurrentMap)) {
-						foreach (RimWorld.Apparel pth in corpse.InnerPawn.apparel.WornApparel) {
-							tmpApparel = new Apparel ();
-							tmpApparel.fillFromThing (pth);
-							tmpApparel.pawn = corpse.InnerPawn.Name.ToString ();
-							tmpApparel.pawnType = "corpse";
-							apparelList.Add (tmpApparel);
-							apparelCount++;
-						}
+					foreach (RimWorld.Apparel pth in corpse.InnerPawn.apparel.WornApparel) {
+						tmpApparel = new Apparel ();
+						tmpApparel.fillFromThing (pth);
+						tmpApparel.pawn = corpse.InnerPawn.Name.ToString ();
+						tmpApparel.pawnType = "corpse";
+						apparelList.Add (tmpApparel);
+						apparelCount++;
 					}
 				}
 			}
@@ -638,201 +584,76 @@ namespace WeaponStats
 					if (pw == null || pw.AnimalOrWildMan ()) {
 						continue;
 					}
-					if (!pw.Position.Fogged (Find.CurrentMap)) {
-						bool hostile = !pw.IsColonist && pw.HostileTo (playerFaction);
-						bool friendly = !pw.IsColonist && !pw.HostileTo (playerFaction);
-						if ((this.showEquipped && pw.IsColonist) ||
-						    (this.showEquippedP && pw.IsPrisonerOfColony) ||
-						    (this.showEquippedH && hostile) ||
-						    (this.showEquippedF && friendly) ||
-						    (this.showEquippedC && pw.Dead)) {
-							if (pw.Dead) {
-								pawnType = "corpse";
-							} else if (pw.IsColonist) {
-								pawnType = "colonist";
-							} else if (pw.IsPrisonerOfColony) {
-								pawnType = "prisoner";
-							} else if (hostile) {
-								pawnType = "hostile";
-							} else if (friendly) {
-								pawnType = "friendly";
-							}
-							foreach (ThingWithComps pth in pw.equipment.AllEquipmentListForReading) {
-								if (pth.def.IsRangedWeapon || pth.def.IsMeleeWeapon) {
-									tb = this.getAppropriateTab (pth);
-									switch (tb) {
-									case WeaponsTab.Ranged:
-										tmpRanged = new RangedWeapon ();
-										tmpRanged.fillFromThing (pth);
-										tmpRanged.pawn = pw.Name.ToString ();
-										tmpRanged.pawnType = pawnType;
-										rangedList.Insert (0, tmpRanged);
-										rangedCount++;
-										break;
-									case WeaponsTab.Melee:
-										tmpMelee = new MeleeWeapon ();
-										tmpMelee.fillFromThing (pth);
-										tmpMelee.pawn = pw.Name.ToString ();
-										tmpMelee.pawnType = pawnType;
-										meleeList.Insert (0, tmpMelee);
-										meleeCount++;
-										break;
-									case WeaponsTab.Grenades:
-										tmpGrenade = new GrenadeWeapon ();
-										tmpGrenade.fillFromThing (pth);
-										tmpGrenade.pawn = pw.Name.ToString ();
-										tmpGrenade.pawnType = pawnType;
-										grenadeList.Insert (0, tmpGrenade);
-										grenadeCount++;
-										break;
-									case WeaponsTab.Other:
-										tmpOther = new OtherWeapon ();
-										tmpOther.fillFromThing (pth);
-										tmpOther.pawn = pw.Name.ToString ();
-										tmpOther.pawnType = pawnType;
-										otherList.Insert (0, tmpOther);
-										otherCount++;
-										break;
-									}
+					bool hostile = !pw.IsColonist && pw.HostileTo (playerFaction);
+					bool friendly = !pw.IsColonist && !pw.HostileTo (playerFaction);
+					if ((this.showEquipped && pw.IsColonist) ||
+					    (this.showEquippedP && pw.IsPrisonerOfColony) ||
+					    (this.showEquippedH && hostile) ||
+					    (this.showEquippedF && friendly) ||
+					    (this.showEquippedC && pw.Dead)) {
+						if (pw.Dead) {
+							pawnType = "corpse";
+						} else if (pw.IsColonist) {
+							pawnType = "colonist";
+						} else if (pw.IsPrisonerOfColony) {
+							pawnType = "prisoner";
+						} else if (hostile) {
+							pawnType = "hostile";
+						} else if (friendly) {
+							pawnType = "friendly";
+						}
+						foreach (ThingWithComps pth in pw.equipment.AllEquipmentListForReading) {
+							if (pth.def.IsRangedWeapon || pth.def.IsMeleeWeapon) {
+								tb = this.getAppropriateTab (pth);
+								switch (tb) {
+								case WeaponsTab.Ranged:
+									tmpRanged = new RangedWeapon ();
+									tmpRanged.fillFromThing (pth);
+									tmpRanged.pawn = pw.Name.ToString ();
+									tmpRanged.pawnType = pawnType;
+									rangedList.Insert (0, tmpRanged);
+									rangedCount++;
+									break;
+								case WeaponsTab.Melee:
+									tmpMelee = new MeleeWeapon ();
+									tmpMelee.fillFromThing (pth);
+									tmpMelee.pawn = pw.Name.ToString ();
+									tmpMelee.pawnType = pawnType;
+									meleeList.Insert (0, tmpMelee);
+									meleeCount++;
+									break;
+								case WeaponsTab.Grenades:
+									tmpGrenade = new GrenadeWeapon ();
+									tmpGrenade.fillFromThing (pth);
+									tmpGrenade.pawn = pw.Name.ToString ();
+									tmpGrenade.pawnType = pawnType;
+									grenadeList.Insert (0, tmpGrenade);
+									grenadeCount++;
+									break;
+								case WeaponsTab.Other:
+									tmpOther = new OtherWeapon ();
+									tmpOther.fillFromThing (pth);
+									tmpOther.pawn = pw.Name.ToString ();
+									tmpOther.pawnType = pawnType;
+									otherList.Insert (0, tmpOther);
+									otherCount++;
+									break;
 								}
 							}
-							foreach (RimWorld.Apparel pth in pw.apparel.WornApparel) {
-								tmpApparel = new Apparel ();
-								tmpApparel.fillFromThing (pth);
-								tmpApparel.pawn = pw.Name.ToString ();
-								tmpApparel.pawnType = pawnType;
-								apparelList.Add (tmpApparel);
-								apparelCount++;
-							}
-							// things in inventories
-							foreach (Thing pth in pw.inventory.innerContainer.ToList()) {
-								if (pth.def.IsRangedWeapon || pth.def.IsMeleeWeapon) {
-									tb = this.getAppropriateTab (pth);
-									switch (tb) {
-									case WeaponsTab.Ranged:
-										tmpRanged = new RangedWeapon ();
-										tmpRanged.fillFromThing (pth);
-										tmpRanged.pawn = pw.Name.ToString ();
-										tmpRanged.pawnType = pawnType;
-										rangedList.Insert (0, tmpRanged);
-										rangedCount++;
-										break;
-									case WeaponsTab.Melee:
-										tmpMelee = new MeleeWeapon ();
-										tmpMelee.fillFromThing (pth);
-										tmpMelee.pawn = pw.Name.ToString ();
-										tmpMelee.pawnType = pawnType;
-										meleeList.Insert (0, tmpMelee);
-										meleeCount++;
-										break;
-									case WeaponsTab.Grenades:
-										tmpGrenade = new GrenadeWeapon ();
-										tmpGrenade.fillFromThing (pth);
-										tmpGrenade.pawn = pw.Name.ToString ();
-										tmpGrenade.pawnType = pawnType;
-										grenadeList.Insert (0, tmpGrenade);
-										grenadeCount++;
-										break;
-									case WeaponsTab.Other:
-										tmpOther = new OtherWeapon ();
-										tmpOther.fillFromThing (pth);
-										tmpOther.pawn = pw.Name.ToString ();
-										tmpOther.pawnType = pawnType;
-										otherList.Insert (0, tmpOther);
-										otherCount++;
-										break;
-									}
-								}/* else if (pth.def.IsApparel) {
-									tmpApparel = new Apparel ();
-									tmpApparel.fillFromThing (pth);
-									tmpApparel.pawn = pw.Name.ToString ();
-									tmpApparel.pawnType = pawnType;
-									apparelList.Add (tmpApparel);
-									apparelCount++;
-								}*/
-							}
-							pawnType = "";
 						}
+						foreach (RimWorld.Apparel pth in pw.apparel.WornApparel) {
+							tmpApparel = new Apparel ();
+							tmpApparel.fillFromThing (pth);
+							tmpApparel.pawn = pw.Name.ToString ();
+							tmpApparel.pawnType = pawnType;
+							apparelList.Add (tmpApparel);
+							apparelCount++;
+						}
+						pawnType = "";
 					}
 				}
 			} catch (System.NullReferenceException e) {
 				Log.Message (e.Message);
-			}
-
-			if (this.showCraftable)
-			{
-				var buildingList = Find.CurrentMap.listerBuildings.allBuildingsColonist;
-				foreach (var building in buildingList)
-				{
-					if (!(building is Building_WorkTable)) continue;
-					var workTable = building as Building_WorkTable;
-					var recipeList = workTable.def.AllRecipes;
-					foreach (var recipe in recipeList)
-					{
-						if (!recipe.AvailableNow) continue;
-						var thingDef = recipe.ProducedThingDef;
-						if (thingDef == null) continue;
-						if (!thingDef.IsWeapon && !thingDef.IsApparel) continue;
-						var thingsFromRecipe = new List<Thing>();
-						if (thingDef.MadeFromStuff)
-						{
-							var stuff = GenStuff.DefaultStuffFor(thingDef);
-							thingsFromRecipe.Add(ThingMaker.MakeThing(thingDef, stuff));
-						}
-						else
-						{
-							thingsFromRecipe.Add(ThingMaker.MakeThing(thingDef));
-						}
-
-						foreach (var th in thingsFromRecipe)
-						{
-							tb = this.getAppropriateTab(th);
-							switch (tb)
-							{
-								case WeaponsTab.Ranged:
-									tmpRanged = new RangedWeapon();
-									tmpRanged.fillFromThing(th);
-									tmpRanged.craftable = true;
-									tmpRanged.cratablePos = workTable;
-									rangedList.Add(tmpRanged);
-									rangedCount++;
-									break;
-								case WeaponsTab.Melee:
-									tmpMelee = new MeleeWeapon();
-									tmpMelee.fillFromThing(th);
-									tmpMelee.craftable = true;
-									tmpMelee.cratablePos = workTable;
-									meleeList.Add(tmpMelee);
-									meleeCount++;
-									break;
-								case WeaponsTab.Grenades:
-									tmpGrenade = new GrenadeWeapon();
-									tmpGrenade.fillFromThing(th);
-									tmpGrenade.craftable = true;
-									tmpGrenade.cratablePos = workTable;
-									grenadeList.Add(tmpGrenade);
-									grenadeCount++;
-									break;
-								case WeaponsTab.Apparel:
-									tmpApparel = new Apparel();
-									tmpApparel.fillFromThing(th);
-									tmpApparel.craftable = true;
-									tmpApparel.cratablePos = workTable;
-									apparelList.Add(tmpApparel);
-									apparelCount++;
-									break;
-								case WeaponsTab.Other:
-									tmpOther = new OtherWeapon();
-									tmpOther.fillFromThing(th);
-									tmpOther.craftable = true;
-									tmpOther.cratablePos = workTable;
-									otherList.Add(tmpOther);
-									otherCount++;
-									break;
-							}
-						}
-					}
-				}
 			}
 
 			// SORTING
@@ -859,27 +680,12 @@ namespace WeaponStats
 			}
 
 			this.listUpdateNext = Find.TickManager.TicksGame + Verse.GenTicks.TickRareInterval;
-			this.isDirty = false;
 		}
 
 		public override void PreOpen ()
 		{
 			base.PreOpen ();
 			this.isDirty = true;
-			this.tdm = Prefs.TemperatureMode;
-			if (this.tdm == TemperatureDisplayMode.Celsius) {
-				this.tempUnit = "°C";
-				this.tempCoeff = 1.0f;
-			} else if (this.tdm == TemperatureDisplayMode.Fahrenheit) {
-				this.tempUnit = "°F";
-				this.tempCoeff = 1.8f;
-			} else if (this.tdm == TemperatureDisplayMode.Kelvin) {
-				this.tempUnit = "K";
-				this.tempCoeff = 1.0f;
-			} else {
-				this.tempUnit = "";
-				this.tempCoeff = 1.0f;
-			}
 		}
 
 		public override void DoWindowContents (Rect rect)
@@ -900,25 +706,21 @@ namespace WeaponStats
 			GUI.color = Color.white;
 
 			List<TabRecord> list = new List<TabRecord> ();
-			list.Add (new TabRecord ("WeaponStats.Ranged".Translate(), delegate {
+			list.Add (new TabRecord ("Ranged", delegate {
 				this.curTab = WeaponStats.MainTabWindow_WeaponStats.WeaponsTab.Ranged;
 			}, this.curTab == WeaponsTab.Ranged));
-			list.Add (new TabRecord ("WeaponStats.Melee".Translate(), delegate {
+			list.Add (new TabRecord ("Melee", delegate {
 				this.curTab = WeaponStats.MainTabWindow_WeaponStats.WeaponsTab.Melee;
 			}, this.curTab == WeaponsTab.Melee));
-			list.Add (new TabRecord ("WeaponStats.Grenades".Translate(), delegate {
+			list.Add (new TabRecord ("Grenades", delegate {
 				this.curTab = WeaponStats.MainTabWindow_WeaponStats.WeaponsTab.Grenades;
 			}, this.curTab == WeaponsTab.Grenades));
-			list.Add (new TabRecord ("WeaponStats.Apparel".Translate(), delegate {
+			//list.Add (new TabRecord ("Other", delegate {
+			//	this.curTab = WeaponStats.MainTabWindow_WeaponStats.WeaponsTab.Other;
+			//}, this.curTab == WeaponsTab.Other));
+			list.Add (new TabRecord ("Apparel", delegate {
 				this.curTab = WeaponStats.MainTabWindow_WeaponStats.WeaponsTab.Apparel;
 			}, this.curTab == WeaponsTab.Apparel));
-			if (Prefs.DevMode)
-			{
-				list.Add(new TabRecord("WeaponStats.Other".Translate(),
-					delegate { this.curTab = WeaponStats.MainTabWindow_WeaponStats.WeaponsTab.Other; },
-					this.curTab == WeaponsTab.Other));
-			}
-
 			TabDrawer.DrawTabs (rect, list);
 			WeaponsTab wpTab = this.curTab;
 
@@ -928,28 +730,16 @@ namespace WeaponStats
 			bool showEquippedHOld = this.showEquippedH;
 			bool showEquippedFOld = this.showEquippedF;
 			bool showEquippedCOld = this.showEquippedC;
-			bool showCraftableOld = this.showCraftable;
-			bool showAllOld = this.showAll;
 
-		    float currentX = rect.x;
-		    void printAutoCheckbox(string text, ref bool value, bool defaultValue = false)
-		    {
-		        var textWidth = Text.CalcSize(text).x + 25f;
-		        Widgets.CheckboxLabeled(new Rect(currentX, rect.y, textWidth, 30), text, ref value, defaultValue);
-		        currentX += textWidth + 25f;
-		    }
-
-		    printAutoCheckbox("WeaponStats.Ground".Translate(), ref this.showGround);
-		    printAutoCheckbox("WeaponStats.Colonists".Translate(), ref this.showEquipped);
-		    printAutoCheckbox("WeaponStats.Prisoners".Translate(), ref this.showEquippedP);
-		    printAutoCheckbox("WeaponStats.Hostiles".Translate(), ref this.showEquippedH);
-		    printAutoCheckbox("WeaponStats.Friendlies".Translate(), ref this.showEquippedF);
-		    printAutoCheckbox("WeaponStats.Corpses".Translate(), ref this.showEquippedC);
-		    printAutoCheckbox("WeaponStats.Craftable".Translate(), ref this.showCraftable);
-		    printAutoCheckbox("WeaponStats.All".Translate(), ref this.showAll);
+			Widgets.CheckboxLabeled (new Rect (rect.x, rect.y, 80, 30), "Ground", ref this.showGround, false);
+			Widgets.CheckboxLabeled (new Rect (rect.x + 100, rect.y, 90, 30), "Colonists", ref this.showEquipped, false);
+			Widgets.CheckboxLabeled (new Rect (rect.x + 210, rect.y, 90, 30), "Prisoners", ref this.showEquippedP, false);
+			Widgets.CheckboxLabeled (new Rect (rect.x + 320, rect.y, 80, 30), "Hostiles", ref this.showEquippedH, false);
+			Widgets.CheckboxLabeled (new Rect (rect.x + 420, rect.y, 90, 30), "Friendlies", ref this.showEquippedF, false);
+			Widgets.CheckboxLabeled (new Rect (rect.x + 530, rect.y, 80, 30), "Corpses", ref this.showEquippedC, false);
 
 			if (showGroundOld != this.showGround || showEquippedOld != this.showEquipped || showEquippedPOld != this.showEquippedP || showEquippedHOld != this.showEquippedH
-			    || showEquippedFOld != this.showEquippedF || showEquippedCOld != this.showEquippedC || showCraftableOld != this.showCraftable || showAllOld != this.showAll) {
+			    || showEquippedFOld != this.showEquippedF || showEquippedCOld != this.showEquippedC) {
 				this.isDirty = true;
 			}
 

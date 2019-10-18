@@ -7,12 +7,13 @@
 	<WeaponStats.Hostiles>Враги</WeaponStats.Hostiles>
 	<WeaponStats.Friendlies>Союзники</WeaponStats.Friendlies>
 	<WeaponStats.Corpses>Трупы</WeaponStats.Corpses>
+	<WeaponStats.Craftable>Крафт</WeaponStats.Craftable>
 	<WeaponStats.All>Все</WeaponStats.All>
 	
 	<WeaponStats.Ranged>Оружие дальнего боя</WeaponStats.Ranged>
 	<WeaponStats.Melee>Оружие ближнего боя</WeaponStats.Melee>
 	<WeaponStats.Grenades>Гранаты</WeaponStats.Grenades>
 	<WeaponStats.Apparel>Одежда</WeaponStats.Apparel>
-	<WeaponStats.Other>Oстальные</WeaponStats.Other>
+	<WeaponStats.Other>Другое</WeaponStats.Other>
 
 </LanguageData>

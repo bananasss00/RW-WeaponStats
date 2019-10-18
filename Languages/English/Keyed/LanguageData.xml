@@ -7,8 +7,8 @@
 	<WeaponStats.Hostiles>Hostiles</WeaponStats.Hostiles>
 	<WeaponStats.Friendlies>Friendlies</WeaponStats.Friendlies>
 	<WeaponStats.Corpses>Corpses</WeaponStats.Corpses>
-	<WeaponStats.All>All</WeaponStats.All>
 	<WeaponStats.Craftable>Craftable</WeaponStats.Craftable>
+	<WeaponStats.All>All</WeaponStats.All>
 	
 	<WeaponStats.Ranged>Ranged</WeaponStats.Ranged>
 	<WeaponStats.Melee>Melee</WeaponStats.Melee>

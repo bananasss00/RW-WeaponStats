@@ -53,12 +53,10 @@ namespace WeaponStats
 						}
 					}
 				}
-
-                // In HSK GetStatValue cause exception for MeleeWeapon_Shocker, MeleeWeapon_ElectricBaton
-                this.dps = (float)Math.Round(th.GetStatValue(StatDefOf.MeleeWeapon_AverageDPS), 2);
-            } catch (System.NullReferenceException e) {
+			} catch (System.NullReferenceException e) {
 				this.exceptions.Add (e);
 			}
+			this.dps = (float)Math.Round (th.GetStatValue (StatDefOf.MeleeWeapon_AverageDPS), 2);
 		}
 	}
 }

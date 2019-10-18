@@ -2,3 +2,7 @@
 /home/bodlosh/Repositories/rimworld-mods/WeaponsTab/Source/WeaponsTab/obj/Release/WeaponsTab.csprojAssemblyReference.cache
 /home/bodlosh/Repositories/rimworld-mods/WeaponsTab/Source/WeaponsTab/obj/Release/WeaponsTab.csproj.CoreCompileInputs.cache
 /home/bodlosh/Repositories/rimworld-mods/WeaponsTab/Source/WeaponsTab/obj/Release/WeaponsTab.dll
+c:\Games\RimWorld v1.0.2059\Mods\WeaponStats\Assemblies\WeaponsTab.dll
+c:\Games\RimWorld v1.0.2059\Mods\WeaponStats\Source\WeaponsTab\obj\Release\WeaponsTab.csprojAssemblyReference.cache
+c:\Games\RimWorld v1.0.2059\Mods\WeaponStats\Source\WeaponsTab\obj\Release\WeaponsTab.csproj.CoreCompileInputs.cache
+c:\Games\RimWorld v1.0.2059\Mods\WeaponStats\Source\WeaponsTab\obj\Release\WeaponsTab.dll

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <MainButtonDef>
+        <defName>Bodlosh_WeaponStats</defName>
+        <label>Weapons</label>
+        <description>Weapons</description>
+        <tabWindowClass>WeaponStats.MainTabWindow_WeaponStats</tabWindowClass>
+        <order>60</order>
+    </MainButtonDef>
+</Defs>

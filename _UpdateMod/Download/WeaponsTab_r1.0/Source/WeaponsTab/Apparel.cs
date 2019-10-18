@@ -19,10 +19,6 @@ namespace WeaponStats
 
 		public float insulationh { get; set; }
 
-		public float workSpeed { get; set; }
-
-		public float learnFactor { get; set; }
-
 
 		public Apparel () : base ()
 		{
@@ -38,9 +34,6 @@ namespace WeaponStats
 				armorHeat = th.GetStatValue (StatDefOf.ArmorRating_Heat);
 				insulation = th.GetStatValue (StatDefOf.Insulation_Cold);
 				insulationh = th.GetStatValue (StatDefOf.Insulation_Heat);
-			    workSpeed = th.GetStatValue(StatDefOf.WorkSpeedGlobal);
-			    learnFactor = th.GetStatValue(StatDefOf.GlobalLearningFactor);
-
 			} catch (System.NullReferenceException e) {
 				this.exceptions.Add (e);
 			}

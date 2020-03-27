@@ -19,20 +19,23 @@ namespace WeaponStats
 
         public static IEnumerable<Thing> Weapons(bool onMap = true)
         {
-            var lister = onMap ? Find.CurrentMap.listerThings : All;
+            var lister = onMap ? Find.CurrentMap?.listerThings : All;
+            if (lister == null) return Enumerable.Empty<Thing>();
             return lister.AllThings.Where(thing => thing.def.IsWeapon);
             //return lister.AllThings.Where(d => d.def.IsWeapon && (d.def.tradeability.TraderCanSell() || (d.def.weaponTags != null && d.def.weaponTags.Contains("TurretGun"))));
         }
 
         public static IEnumerable<Thing> Apparels(bool onMap = true)
         {
-            var lister = onMap ? Find.CurrentMap.listerThings : All;
+            var lister = onMap ? Find.CurrentMap?.listerThings : All;
+            if (lister == null) return Enumerable.Empty<Thing>();
             return lister.AllThings.Where(thing => thing.def.IsApparel);
         }
 
         public static IEnumerable<Thing> Corpses()
         {
-            var lister = Find.CurrentMap.listerThings;
+            var lister = Find.CurrentMap?.listerThings;
+            if (lister == null) return Enumerable.Empty<Thing>();
             return lister.AllThings.Where(thing => thing.def.IsCorpse);
         }
 

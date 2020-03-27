@@ -306,11 +306,34 @@ namespace WeaponStats
 				TooltipHandler.TipRegion(p, w.cratablePos.def.label);
 			}
 			else
-			{
-				if (Widgets.ButtonInvisible(new Rect(20, ROW_HEIGHT * rowNum, rowWidth, ROW_HEIGHT)))
+            {
+                bool isSelected = Find.Selector.IsSelected(t);
+                Rect rowRect = new Rect(20, ROW_HEIGHT * rowNum, rowWidth, ROW_HEIGHT);
+                if (isSelected)
+                {
+                    var backupColor = GUI.color;
+                    GUI.color = Color.yellow;
+                    Widgets.DrawHighlight(rowRect);
+                    GUI.color = backupColor;
+                }
+				if (Widgets.ButtonInvisible(rowRect))
 				{
-					RimWorld.Planet.GlobalTargetInfo gti = new RimWorld.Planet.GlobalTargetInfo(t);
-					CameraJumper.TryJumpAndSelect(gti);
+                    if (Event.current.shift)
+                    {
+                        if (t.Map == null)
+                        {
+
+                        }
+                        else if (isSelected)
+                            Find.Selector.Deselect(t);
+                        else
+                            Find.Selector.Select(t);
+                    }
+                    else
+                    {
+                        RimWorld.Planet.GlobalTargetInfo gti = new RimWorld.Planet.GlobalTargetInfo(t);
+                        CameraJumper.TryJumpAndSelect(gti);
+                    }
 				}
 
 				if (w.pawn != null)

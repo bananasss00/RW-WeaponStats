@@ -134,13 +134,15 @@ namespace WeaponStats
 
 		private void DoMeleePage (Rect rect, int count, List<MeleeWeapon> meleeList)
 		{
-			colDef[] meleeHeaders = new colDef[6] {
+			colDef[] meleeHeaders = new colDef[] {
 				new colDef ("Quality", "qualityNum"),
 				new colDef ("HP", "hp"),
 				new colDef ("DPS", "dps"), 
 				new colDef ("Value", "marketValue"),
 				new colDef ("Damage", "damage"),
-				new colDef ("Cooldwn", "cooldown")
+				new colDef ("Cooldwn", "cooldown"),
+				new colDef ("ArmPentr", "ceMeleePenetration"),
+				new colDef ("ParryBns", "ceParryBonus"),
 			};
 			rect.y += 30;
 			GUI.BeginGroup (rect);
@@ -394,6 +396,10 @@ namespace WeaponStats
 			printCell (Math.Round (t.damage, 2), num, ww);
 			ww += STAT_WIDTH;
 			printCell (t.cooldown, num, ww);
+			ww += STAT_WIDTH;
+			printCell (t.ceMeleePenetration, num, ww);
+			ww += STAT_WIDTH;
+			printCell (t.ceParryBonus, num, ww);
 			ww += STAT_WIDTH;
 			printCell (t.damageType, num, ww, DTYPE_WIDTH);
 			ww += DTYPE_WIDTH;

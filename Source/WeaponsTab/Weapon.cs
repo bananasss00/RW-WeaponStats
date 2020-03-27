@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Harmony;
 using UnityEngine;
 using Verse;
 using RimWorld;
@@ -14,6 +15,9 @@ namespace WeaponStats
 		protected const int RNG_MEDIUM = 30;
 		protected const int RNG_LONG = 50;
 		protected const int TPS = 60;
+
+	    protected StatDef CE_MeleeCounterParryBonus = null;
+	    protected StatDef CE_MeleePenetrationFactor = null;
 
 		public bool visible = true;
 
@@ -51,6 +55,10 @@ namespace WeaponStats
 
 		public string stuff { get; set; }
 
+		public float ceMeleePenetration { get; set; }
+
+		public float ceParryBonus { get; set; }
+
 		public List<Exception> exceptions;
 
 		public Weapon ()
@@ -68,6 +76,25 @@ namespace WeaponStats
 			thing = null;
 			quality = "normal";
 			pawn = null;
+		    ceMeleePenetration = 0f;
+		    ceParryBonus = 0f;
+
+            // CombatExtended
+		    Type CE_StatDefOf = AccessTools.TypeByName("CombatExtended.CE_StatDefOf");
+		    if (CE_StatDefOf != null)
+		    {
+		        var MeleePenetrationFactor = AccessTools.Field(CE_StatDefOf, "MeleePenetrationFactor");
+		        if (MeleePenetrationFactor != null)
+		        {
+		            CE_MeleePenetrationFactor = MeleePenetrationFactor.GetValue(null) as StatDef;
+		        }
+
+		        var MeleeCounterParryBonus = AccessTools.Field(CE_StatDefOf, "MeleeCounterParryBonus");
+		        if (MeleeCounterParryBonus != null)
+		        {
+		            CE_MeleeCounterParryBonus = MeleeCounterParryBonus.GetValue(null) as StatDef;
+		        }
+		    }
 		}
 
 		private int getQualityNum (string label)
@@ -127,6 +154,17 @@ namespace WeaponStats
 					} else {
 						stuff = "";
 					}
+
+				    // CombatExtended
+				    if (CE_MeleePenetrationFactor != null)
+				    {
+				        ceMeleePenetration = th.GetStatValue(CE_MeleePenetrationFactor);
+				    }
+
+				    if (CE_MeleeCounterParryBonus != null)
+				    {
+				        ceParryBonus = th.GetStatValue(CE_MeleeCounterParryBonus);
+				    }
 				}
 			} catch (System.NullReferenceException e) {
 				this.exceptions.Add (e);

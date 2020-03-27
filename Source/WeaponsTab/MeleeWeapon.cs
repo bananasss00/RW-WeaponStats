@@ -16,7 +16,7 @@ namespace WeaponStats
 			*/
 		public MeleeWeapon () : base ()
 		{
-
+		    
 		}
 
 		private float getDps ()

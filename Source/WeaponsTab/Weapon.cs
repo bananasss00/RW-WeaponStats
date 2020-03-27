@@ -16,8 +16,9 @@ namespace WeaponStats
 		protected const int RNG_LONG = 50;
 		protected const int TPS = 60;
 
-	    protected StatDef CE_MeleeCounterParryBonus = null;
-	    protected StatDef CE_MeleePenetrationFactor = null;
+        protected static bool CE_Init;
+	    protected static StatDef CE_MeleeCounterParryBonus = null;
+	    protected static StatDef CE_MeleePenetrationFactor = null;
 
 		public bool visible = true;
 
@@ -80,22 +81,27 @@ namespace WeaponStats
 		    ceParryBonus = 0f;
 
             // CombatExtended
-		    Type CE_StatDefOf = AccessTools.TypeByName("CombatExtended.CE_StatDefOf");
-		    if (CE_StatDefOf != null)
-		    {
-		        var MeleePenetrationFactor = AccessTools.Field(CE_StatDefOf, "MeleePenetrationFactor");
-		        if (MeleePenetrationFactor != null)
-		        {
-		            CE_MeleePenetrationFactor = MeleePenetrationFactor.GetValue(null) as StatDef;
-		        }
+            if (!CE_Init)
+            {
+                Type CE_StatDefOf = AccessTools.TypeByName("CombatExtended.CE_StatDefOf");
+                if (CE_StatDefOf != null)
+                {
+                    var MeleePenetrationFactor = AccessTools.Field(CE_StatDefOf, "MeleePenetrationFactor");
+                    if (MeleePenetrationFactor != null)
+                    {
+                        CE_MeleePenetrationFactor = MeleePenetrationFactor.GetValue(null) as StatDef;
+                    }
 
-		        var MeleeCounterParryBonus = AccessTools.Field(CE_StatDefOf, "MeleeCounterParryBonus");
-		        if (MeleeCounterParryBonus != null)
-		        {
-		            CE_MeleeCounterParryBonus = MeleeCounterParryBonus.GetValue(null) as StatDef;
-		        }
-		    }
-		}
+                    var MeleeCounterParryBonus = AccessTools.Field(CE_StatDefOf, "MeleeCounterParryBonus");
+                    if (MeleeCounterParryBonus != null)
+                    {
+                        CE_MeleeCounterParryBonus = MeleeCounterParryBonus.GetValue(null) as StatDef;
+                    }
+                }
+
+                CE_Init = true;
+            }
+        }
 
 		private int getQualityNum (string label)
 		{

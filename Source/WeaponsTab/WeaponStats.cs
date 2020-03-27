@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -321,9 +322,7 @@ namespace WeaponStats
                     if (Event.current.shift)
                     {
                         if (t.Map == null)
-                        {
-
-                        }
+                            ;
                         else if (isSelected)
                             Find.Selector.Deselect(t);
                         else

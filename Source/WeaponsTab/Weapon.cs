@@ -142,9 +142,11 @@ namespace WeaponStats
 					thing = th;
 					marketValue = th.MarketValue;
 					position = th.Position;
-					if (th.def != null) {
-						label = th.def.label;
-					}
+					//if (th.def != null) {
+					//	label = th.def.label;
+					//}
+                    label = th/*.def.label*/.LabelCap; // for show labels from mod RenameEverything mb more
+
 					hp = 100 * th.HitPoints / th.MaxHitPoints;
 					marketValue = th.MarketValue;
 					QualityCategory qc;

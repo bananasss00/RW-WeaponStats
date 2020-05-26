@@ -474,7 +474,7 @@ namespace WeaponStats
 			DrawCommon (num, w);
 			int ww = 0;
 			ww = this.DrawCommonButtons (ww, num, w, t.thing, t);
-			printCell (t.stuff + " " + t.label, num, ww, LABEL_WIDTH);
+			printCell (/*t.stuff + " " + */t.label, num, ww, LABEL_WIDTH);
 			ww += LABEL_WIDTH;
 			printCell (t.quality, num, ww, QUALITY_WIDTH);
 			ww += QUALITY_WIDTH;

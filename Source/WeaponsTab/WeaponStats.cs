@@ -394,7 +394,9 @@ namespace WeaponStats
                 new colDef("Sharp", "armorSharp"),
                 new colDef("Heat", "armorHeat"),
                 new colDef("ICold", "insulation"),
-                new colDef("IHeat", "insulationh")
+                new colDef("IHeat", "insulationh"),
+                new colDef ("Work", "workSpeed"),
+                new colDef ("Learn", "learnFactor")
             };
             rect.y += 30;
             GUI.BeginGroup(rect);
@@ -746,6 +748,10 @@ namespace WeaponStats
             ww += STAT_WIDTH;
             printCell(Math.Round(t.insulationh * this.tempCoeff, 1), num, ww, STAT_WIDTH, this.tempUnit);
             ww += STAT_WIDTH;
+            printCell (Math.Round(t.workSpeed * 100, 1), num, ww, STAT_WIDTH, "%");
+            ww += STAT_WIDTH;
+            printCell (Math.Round(t.learnFactor * 100, 1), num, ww, STAT_WIDTH, "%");
+            ww += STAT_WIDTH;
         }
 
         private void DrawToolRow(ToolWeapon t, int num, float w)
@@ -948,7 +954,7 @@ namespace WeaponStats
             WeaponsTab tb;
             if (this.showGround)
             {
-                foreach (Thing th in Find.CurrentMap.listerThings.ThingsInGroup(ThingRequestGroup.Weapon))
+                foreach (Thing th in Lister.Weapons())
                 {
                     if (!th.Position.Fogged(Find.CurrentMap))
                     {
@@ -989,7 +995,7 @@ namespace WeaponStats
                     }
                 }
 
-                foreach (Thing th in Find.CurrentMap.listerThings.ThingsInGroup(ThingRequestGroup.Apparel))
+                foreach (Thing th in Lister.Apparels())
                 {
                     if (!th.Position.Fogged(Find.CurrentMap))
                     {
@@ -1005,7 +1011,7 @@ namespace WeaponStats
             if (this.showEquippedC)
             {
                 Corpse corpse;
-                foreach (Thing th in Find.CurrentMap.listerThings.ThingsInGroup(ThingRequestGroup.Corpse))
+                foreach (Thing th in Lister.Corpses())
                 {
                     corpse = (Corpse) th;
                     if (corpse.InnerPawn.apparel != null && !th.Position.Fogged(Find.CurrentMap))

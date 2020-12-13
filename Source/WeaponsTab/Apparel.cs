@@ -23,6 +23,9 @@ namespace WeaponStats
         public float ceCarryWeight { get; set; }
         public float ceCarryBulk { get; set; }
 
+        public float workSpeed { get; set; }
+        public float learnFactor { get; set; }
+
 
         public Apparel() : base()
         {
@@ -38,6 +41,8 @@ namespace WeaponStats
                 armorHeat = th.GetStatValue(StatDefOf.ArmorRating_Heat);
                 insulation = th.GetStatValue(StatDefOf.Insulation_Cold);
                 insulationh = th.GetStatValue(StatDefOf.Insulation_Heat);
+                workSpeed = th.def.equippedStatOffsets.GetStatOffsetFromList(StatDefOf.WorkSpeedGlobal);
+                learnFactor = th.def.equippedStatOffsets.GetStatOffsetFromList(StatDefOf.GlobalLearningFactor);
                 if (ce)
                 {
                     ceBulk = th.GetStatValue(StatDef.Named("Bulk"));

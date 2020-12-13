@@ -33,10 +33,11 @@ namespace WeaponStats
 			base.fillFromThing (th);
 			tools = new List<WeaponPartTool>();
 			try {
-				ThingDef material = th.Stuff;
-				if (material != null) {
-					this.label = material.label + " " + this.label;
-				}
+                // label from Thing contain material
+				//ThingDef material = th.Stuff;
+				//if (material != null) {
+				//	this.label = material.label + " " + this.label;
+				//}
 				float tmpCldwn = 1f;
 				float tmpDmg = 0f;
 				bool usethis = false;

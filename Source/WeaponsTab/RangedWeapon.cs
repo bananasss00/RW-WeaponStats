@@ -169,6 +169,26 @@ namespace WeaponStats
                                 hasCeVerb = true;
                                 warmup = vp.warmupTime;
                                 maxRange = vp.range;
+
+                                //test
+                                damage = vp.defaultProjectile.projectile.GetDamageAmount(th);
+                                if (vp.burstShotCount > 0)
+                                {
+                                    this.burstShotCount = vp.burstShotCount;
+                                }
+                                else
+                                {
+                                    this.burstShotCount = 1;
+                                }
+
+                                if (vp.ticksBetweenBurstShots > 0)
+                                {
+                                    this.ticksBetweenBurstShots = vp.ticksBetweenBurstShots;
+                                }
+                                else
+                                {
+                                    this.ticksBetweenBurstShots = 10;
+                                }
                             }
                         }
                     }

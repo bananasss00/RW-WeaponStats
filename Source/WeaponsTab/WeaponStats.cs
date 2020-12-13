@@ -147,6 +147,7 @@ namespace WeaponStats
                 {
                     new colDef("Quality", "qualityNum"),
                     new colDef("HP", "hp"),
+                    new colDef("DPS", "dps"),
                     new colDef("Value", "marketValue"),
                     new colDef("Range", "maxRange"),
                     new colDef("Cooldwn", "cooldown"),
@@ -531,10 +532,31 @@ namespace WeaponStats
             }
             else
             {
-                if (Widgets.ButtonInvisible(new Rect(20, ROW_HEIGHT * rowNum, rowWidth, ROW_HEIGHT)))
+                bool isSelected = Find.Selector.IsSelected(t);
+                Rect rowRect = new Rect(20, ROW_HEIGHT * rowNum, rowWidth, ROW_HEIGHT);
+                if (isSelected)
                 {
-                    RimWorld.Planet.GlobalTargetInfo gti = new RimWorld.Planet.GlobalTargetInfo(t);
-                    CameraJumper.TryJumpAndSelect(gti);
+                    var backupColor = GUI.color;
+                    GUI.color = Color.yellow;
+                    Widgets.DrawHighlight(rowRect);
+                    GUI.color = backupColor;
+                }
+                if (Widgets.ButtonInvisible(rowRect))
+                {
+                    if (Event.current.shift)
+                    {
+                        if (t.Map == null)
+                            ;
+                        else if (isSelected)
+                            Find.Selector.Deselect(t);
+                        else
+                            Find.Selector.Select(t);
+                    }
+                    else
+                    {
+                        RimWorld.Planet.GlobalTargetInfo gti = new RimWorld.Planet.GlobalTargetInfo(t);
+                        CameraJumper.TryJumpAndSelect(gti);
+                    }
                 }
 
                 if (w.pawn != null)
@@ -730,7 +752,7 @@ namespace WeaponStats
             DrawCommon(num, w);
             int ww = 0;
             ww = this.DrawCommonButtons(ww, num, w, t.thing, t);
-            printCell(t.stuff + " " + t.label, num, ww, LABEL_WIDTH);
+            printCell(/*t.stuff + " " + */t.label, num, ww, LABEL_WIDTH);
             ww += LABEL_WIDTH;
             printCell(t.quality, num, ww, QUALITY_WIDTH);
             ww += QUALITY_WIDTH;

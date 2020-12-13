@@ -28,7 +28,7 @@ namespace WeaponStats
 			}
 		}
 
-		protected override void SetInitialSizeAndPosition ()
+		public override void SetInitialSizeAndPosition ()
 		{
 			base.SetInitialSizeAndPosition ();
 			this.windowRect.x = (float)UI.screenWidth - this.windowRect.width;

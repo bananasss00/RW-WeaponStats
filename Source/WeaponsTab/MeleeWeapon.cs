@@ -14,9 +14,13 @@ namespace WeaponStats
 			 * 	MeleeWeapon_DamageAmount, MeleeWeapon_Cooldown
 			 * th.def.weaponTags = [Melee]
 			*/
+
+		private List<WeaponPartTool> tools;
+		
+		public float ceCounterParry { get; set; }
 		public MeleeWeapon () : base ()
 		{
-		    
+
 		}
 
 		private float getDps ()
@@ -24,30 +28,42 @@ namespace WeaponStats
 			return (float)Math.Round (this.damage / this.cooldown, 2);
 		}
 
-		public new void fillFromThing (Thing th)
+		public new void fillFromThing (Thing th, bool ce = false)
 		{
 			base.fillFromThing (th);
+			tools = new List<WeaponPartTool>();
 			try {
-                // label from Thing contain material
-				//ThingDef material = th.Stuff;
-				//if (material != null)
-				//{
-				//	this.label = material.label + " " + this.label;
-				//}
+				ThingDef material = th.Stuff;
+				if (material != null) {
+					this.label = material.label + " " + this.label;
+				}
 				float tmpCldwn = 1f;
 				float tmpDmg = 0f;
 				bool usethis = false;
+				if (ce)
+				{
+					armorPenetration = th.GetStatValue(StatDef.Named("MeleePenetrationFactor"));
+					ceCounterParry = th.GetStatValue(StatDef.Named("MeleeCounterParryBonus"));
+				}
+				else
+				{
+					armorPenetration = th.GetStatValue(StatDefOf.MeleeWeapon_AverageArmorPenetration);
+				}
 
 				if (th.def != null && th.def.tools != null) {
-					foreach (Tool tl in th.def.tools) {
+					WeaponPartTool tmptool;
+					foreach (Tool tl in th.def.tools)
+					{
+						tmptool = new WeaponPartTool();
+						tmptool.fillFromTool(tl, ce);
+						this.tools.Add(tmptool);
 						usethis = false;
-						//Log.Message(tl.label + " " + tl.power + " " + tl.cooldownTime + " " + tl.power / tl.cooldownTime + " " + tmpDmg / tmpCldwn);
 						if (tmpDmg / tmpCldwn < tl.power / tl.cooldownTime) {
 							this.cooldown = tl.cooldownTime;
 							this.damage = tl.power;
-							// tl.armorPenetration
 							usethis = true;
 						}
+						
 						if (usethis) {
 							foreach (ToolCapacityDef tcd in tl.capacities) {
 								this.damageType = tcd.label + " (" + tl.label + ")";
@@ -55,10 +71,8 @@ namespace WeaponStats
 						}
 					}
 				}
-
-                // In HSK GetStatValue cause exception for MeleeWeapon_Shocker, MeleeWeapon_ElectricBaton
-                this.dps = (float)Math.Round(th.GetStatValue(StatDefOf.MeleeWeapon_AverageDPS), 2);
-            } catch (System.NullReferenceException e) {
+				this.dps = (float)Math.Round (th.GetStatValue (StatDefOf.MeleeWeapon_AverageDPS), 2);
+			} catch (System.NullReferenceException e) {
 				this.exceptions.Add (e);
 			}
 		}

@@ -28,7 +28,7 @@ namespace WeaponStats
 			explosionRadius = 0f;
 		}
 
-		public new void fillFromThing (Thing th)
+		public new void fillFromThing (Thing th, bool ce = false)
 		{
 			base.fillFromThing (th);
 			try {
@@ -48,6 +48,7 @@ namespace WeaponStats
 							damageType = vp.defaultProjectile.projectile.damageDef.label;
 							explosionDelay = vp.defaultProjectile.projectile.explosionDelay;
 							explosionRadius = vp.defaultProjectile.projectile.explosionRadius;
+							armorPenetration = vp.defaultProjectile.projectile.GetArmorPenetration(th);
 						}
 					}
 				}

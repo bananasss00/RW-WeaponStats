@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+	<WeaponStats.Ground>Ground</WeaponStats.Ground>
+	<WeaponStats.Colonists>Colonists</WeaponStats.Colonists>
+	<WeaponStats.Prisoners>Prisoners</WeaponStats.Prisoners>
+	<WeaponStats.Hostiles>Hostiles</WeaponStats.Hostiles>
+	<WeaponStats.Friendlies>Friendlies</WeaponStats.Friendlies>
+	<WeaponStats.Corpses>Corpses</WeaponStats.Corpses>
+	<WeaponStats.All>All</WeaponStats.All>
+	<WeaponStats.Craftable>Craftable</WeaponStats.Craftable>
+	<WeaponStats.Storage>Storage</WeaponStats.Storage>
+	
+	<WeaponStats.Ranged>Ranged</WeaponStats.Ranged>
+	<WeaponStats.Melee>Melee</WeaponStats.Melee>
+	<WeaponStats.Grenades>Grenades</WeaponStats.Grenades>
+	<WeaponStats.Apparel>Apparel</WeaponStats.Apparel>
+	<WeaponStats.Tools>Tools</WeaponStats.Tools>
+	<WeaponStats.Other>Other</WeaponStats.Other>
+	
+	<WeaponStats.ColName>Name</WeaponStats.ColName>
+	<WeaponStats.ColQuality>Quality</WeaponStats.ColQuality>
+	<WeaponStats.ColHP>HP</WeaponStats.ColHP>
+	<WeaponStats.ColValue>Value</WeaponStats.ColValue>
+	<WeaponStats.ColRange>Range</WeaponStats.ColRange>
+	<WeaponStats.ColCooldwn>Cooldwn</WeaponStats.ColCooldwn>
+	<WeaponStats.ColWarmup>Warmup</WeaponStats.ColWarmup>
+	<WeaponStats.ColSights>Sights</WeaponStats.ColSights>
+	<WeaponStats.ColSpread>Spread</WeaponStats.ColSpread>
+	<WeaponStats.ColSway>Sway</WeaponStats.ColSway>
+	<WeaponStats.ColBulk>Bulk</WeaponStats.ColBulk>
+	<WeaponStats.ColDPS>DPS</WeaponStats.ColDPS>
+	<WeaponStats.ColDPSA>DPSA</WeaponStats.ColDPSA>
+	<WeaponStats.ColDamage>Damage</WeaponStats.ColDamage>
+	<WeaponStats.ColAccuracy>Accuracy</WeaponStats.ColAccuracy>
+	<WeaponStats.ColType>Type</WeaponStats.ColType>
+	<WeaponStats.ColRadius>Radius</WeaponStats.ColRadius>
+	<WeaponStats.ColDelay>Delay</WeaponStats.ColDelay>
+	<WeaponStats.ColBlunt>Blunt</WeaponStats.ColBlunt>
+	<WeaponStats.ColSharp>Sharp</WeaponStats.ColSharp>
+	<WeaponStats.ColHeat>Heat</WeaponStats.ColHeat>
+	<WeaponStats.ColICold>ICold</WeaponStats.ColICold>
+	<WeaponStats.ColIHeat >IHeat</WeaponStats.ColIHeat>
+
+</LanguageData>

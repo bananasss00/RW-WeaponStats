@@ -13,7 +13,7 @@ namespace WeaponStats
 		{
 		}
 
-		public new void fillFromThing (Thing th)
+		public new void fillFromThing (Thing th, bool ce = false)
 		{
 			base.fillFromThing (th);
 			try {

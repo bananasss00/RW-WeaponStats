@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
-	<WeaponStats.Ground>Ground</WeaponStats.Ground>
-	<WeaponStats.Colonists>Colonists</WeaponStats.Colonists>
-	<WeaponStats.Prisoners>Prisoners</WeaponStats.Prisoners>
-	<WeaponStats.Hostiles>Hostiles</WeaponStats.Hostiles>
-	<WeaponStats.Friendlies>Friendlies</WeaponStats.Friendlies>
-	<WeaponStats.Corpses>Corpses</WeaponStats.Corpses>
-	<WeaponStats.Craftable>Craftable</WeaponStats.Craftable>
-	<WeaponStats.All>All</WeaponStats.All>
-	
-	<WeaponStats.Ranged>Ranged</WeaponStats.Ranged>
-	<WeaponStats.Melee>Melee</WeaponStats.Melee>
-	<WeaponStats.Grenades>Grenades</WeaponStats.Grenades>
-	<WeaponStats.Apparel>Apparel</WeaponStats.Apparel>
-	<WeaponStats.Other>Other</WeaponStats.Other>
+    <WeaponStats.Ground>Ground</WeaponStats.Ground>
+    <WeaponStats.Colonists>Colonists</WeaponStats.Colonists>
+    <WeaponStats.Prisoners>Prisoners</WeaponStats.Prisoners>
+    <WeaponStats.Hostiles>Hostiles</WeaponStats.Hostiles>
+    <WeaponStats.Friendlies>Friendlies</WeaponStats.Friendlies>
+    <WeaponStats.Corpses>Corpses</WeaponStats.Corpses>
+    <WeaponStats.All>All</WeaponStats.All>
+    <WeaponStats.Craftable>Craftable</WeaponStats.Craftable>
+    <WeaponStats.Storage>Storage</WeaponStats.Storage>
+
+    <WeaponStats.Ranged>Ranged</WeaponStats.Ranged>
+    <WeaponStats.Melee>Melee</WeaponStats.Melee>
+    <WeaponStats.Grenades>Grenades</WeaponStats.Grenades>
+    <WeaponStats.Apparel>Apparel</WeaponStats.Apparel>
+    <WeaponStats.Tools>Tools</WeaponStats.Tools>
+    <WeaponStats.Other>Other</WeaponStats.Other>
+
+    <WeaponStats.ColName>Name</WeaponStats.ColName>
+    <WeaponStats.ColQuality>Quality</WeaponStats.ColQuality>
+    <WeaponStats.ColHP>HP</WeaponStats.ColHP>
+    <WeaponStats.ColValue>Market value</WeaponStats.ColValue>
+    <WeaponStats.ColRange>Range</WeaponStats.ColRange>
+    <WeaponStats.ColCooldwn>Cooldown</WeaponStats.ColCooldwn>
+    <WeaponStats.ColWarmup>Warmup</WeaponStats.ColWarmup>
+    <WeaponStats.ColSights>Sights</WeaponStats.ColSights>
+    <WeaponStats.ColSpread>Spread</WeaponStats.ColSpread>
+    <WeaponStats.ColSway>Sway</WeaponStats.ColSway>
+    <WeaponStats.ColBulk>Bulk</WeaponStats.ColBulk>
+    <WeaponStats.ColMagazineCapacity>Magazine capacity</WeaponStats.ColMagazineCapacity>
+    <WeaponStats.ColDPS>DPS</WeaponStats.ColDPS>
+    <WeaponStats.ColDPSA>DPS with accuracy</WeaponStats.ColDPSA>
+    <WeaponStats.ColDamage>Damage</WeaponStats.ColDamage>
+    <WeaponStats.ColAccuracy>Accuracy</WeaponStats.ColAccuracy>
+    <WeaponStats.ColType></WeaponStats.ColType>
+    <WeaponStats.ColRadius>Explostion radius</WeaponStats.ColRadius>
+    <WeaponStats.ColDelay>Explosion delay</WeaponStats.ColDelay>
+    <WeaponStats.ColBlunt>Blunt protection</WeaponStats.ColBlunt>
+    <WeaponStats.ColSharp>Sharp protection</WeaponStats.ColSharp>
+    <WeaponStats.ColHeat>Heat protection</WeaponStats.ColHeat>
+    <WeaponStats.ColICold>Cold insulation</WeaponStats.ColICold>
+    <WeaponStats.ColIHeat>Heat insulation</WeaponStats.ColIHeat>
+    <WeaponStats.ColArmorPenetration>Armor penetration</WeaponStats.ColArmorPenetration>
+    <WeaponStats.ColCounterParry>Counter parry</WeaponStats.ColCounterParry>
+
+    <WeaponStats.AccRbName.All>All</WeaponStats.AccRbName.All>
+    <WeaponStats.AccRbName.Touch>Touch</WeaponStats.AccRbName.Touch>
+    <WeaponStats.AccRbName.Short>Short</WeaponStats.AccRbName.Short>
+    <WeaponStats.AccRbName.Medium>Medium</WeaponStats.AccRbName.Medium>
+    <WeaponStats.AccRbName.Long>Long</WeaponStats.AccRbName.Long>
 
 </LanguageData>

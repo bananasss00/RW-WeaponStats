@@ -3,7 +3,11 @@
 	<name>WeaponStats</name>
 	<author>bodlosh</author>
 	<url></url>
-	<supportedVersions><li>1.0</li></supportedVersions>
+	<supportedVersions>
+       <li>1.1</li>
+       <li>1.2</li>
+    </supportedVersions>
+	<packageId>PirateBY.WeaponStats</packageId>
 	<description>
 Adds a "Weapons" tab - list of ranged, melee, explosive weapons and apparel. Source code included.
 	</description>

@@ -14,3 +14,7 @@ c:\Games\RimWorld v1.0.2282\Mods\WeaponStats\Assemblies\WeaponsTab.dll
 c:\Games\RimWorld v1.0.2282\Mods\WeaponStats\Source\WeaponsTab\obj\Release\WeaponsTab.csprojAssemblyReference.cache
 c:\Games\RimWorld v1.0.2282\Mods\WeaponStats\Source\WeaponsTab\obj\Release\WeaponsTab.csproj.CoreCompileInputs.cache
 c:\Games\RimWorld v1.0.2282\Mods\WeaponStats\Source\WeaponsTab\obj\Release\WeaponsTab.dll
+k:\Games\Rimworld_R1.2-HSK\3-MyPack\_Changed_\WeaponStats\Source\WeaponsTab\obj\Release\WeaponsTab.csprojAssemblyReference.cache
+k:\Games\Rimworld_R1.2-HSK\3-MyPack\_Changed_\WeaponStats\Source\WeaponsTab\obj\Release\WeaponsTab.csproj.CoreCompileInputs.cache
+k:\Games\Rimworld_R1.2-HSK\3-MyPack\_Changed_\WeaponStats\Source\WeaponsTab\obj\Release\WeaponsTab.dll
+k:\Games\Rimworld_R1.2-HSK\3-MyPack\_Changed_\WeaponStats\Assemblies\WeaponsTab.dll

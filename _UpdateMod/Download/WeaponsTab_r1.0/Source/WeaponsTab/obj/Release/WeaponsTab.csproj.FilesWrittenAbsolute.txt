@@ -1,2 +1,0 @@
-/home/bodlosh/Repositories/rimworld-mods/WeaponsTab/Assemblies/WeaponsTab.dll
-/home/bodlosh/Repositories/rimworld-mods/WeaponsTab/Source/WeaponsTab/obj/Release/WeaponsTab.dll

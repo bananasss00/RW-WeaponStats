@@ -42,6 +42,8 @@
     <WeaponStats.ColHeat>Heat protection</WeaponStats.ColHeat>
     <WeaponStats.ColICold>Cold insulation</WeaponStats.ColICold>
     <WeaponStats.ColIHeat>Heat insulation</WeaponStats.ColIHeat>
+    <WeaponStats.ColWork>Work speed</WeaponStats.ColWork>
+    <WeaponStats.ColLearn>Learn factor</WeaponStats.ColLearn>
     <WeaponStats.ColArmorPenetration>Armor penetration</WeaponStats.ColArmorPenetration>
     <WeaponStats.ColCounterParry>Counter parry</WeaponStats.ColCounterParry>
 

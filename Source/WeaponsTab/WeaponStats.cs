@@ -20,7 +20,7 @@ namespace WeaponStats
         private const int STAT_WIDTH = 60;
         private const int ICON_WIDTH = 29;
         private const int GOTO_WIDTH = 0;
-        private const int LABEL_WIDTH = 200;
+        private const int LABEL_WIDTH = 250;
         private const int QUALITY_WIDTH = STAT_WIDTH;
         private const int ACCURACY_WIDTH = 2 * STAT_WIDTH;
         private const int DTYPE_WIDTH = 3 * STAT_WIDTH;
@@ -135,7 +135,7 @@ namespace WeaponStats
 
         private int GetStartingWidth()
         {
-            return PAWN_WIDTH + 2 + ICON_WIDTH;
+            return PAWN_WIDTH + 2 + ICON_WIDTH + LABEL_WIDTH;
         }
 
         private void DoRangedPage(Rect rect, int count, List<RangedWeapon> rangedList)
@@ -201,8 +201,6 @@ namespace WeaponStats
             int num = 0;
             int ww = GetStartingWidth();
             DrawCommon(-1, inRect.width);
-            printCellSort(WeaponsTab.Ranged, "label", "WeaponStats.ColName".Translate(), ww, LABEL_WIDTH);
-            ww += LABEL_WIDTH;
             foreach (colDef h in rangedHeaders)
             {
                 if (h.property == "dpsa")
@@ -284,8 +282,6 @@ namespace WeaponStats
             int num = 0;
             int ww = GetStartingWidth();
             DrawCommon(-1, inRect.width);
-            printCellSort(WeaponsTab.Melee, "label", "WeaponStats.ColName".Translate(), ww, LABEL_WIDTH);
-            ww += LABEL_WIDTH;
             foreach (colDef h in meleeHeaders)
             {
                 printCellSort(WeaponsTab.Melee, h.property, ("WeaponStats.Col" + h.label).Translate(), ww);
@@ -328,8 +324,6 @@ namespace WeaponStats
             int num = 0;
             int ww = GetStartingWidth();
             DrawCommon(-1, inRect.width);
-            printCellSort(WeaponsTab.Grenades, "label", "WeaponStats.ColName".Translate(), ww, LABEL_WIDTH);
-            ww += LABEL_WIDTH;
             foreach (colDef h in grenadeHeaders)
             {
                 printCellSort(WeaponsTab.Grenades, h.property, ("WeaponStats.Col" + h.label).Translate(), ww);
@@ -364,8 +358,6 @@ namespace WeaponStats
             int num = 0;
             int ww = GetStartingWidth();
             DrawCommon(-1, inRect.width);
-            printCellSort(WeaponsTab.Other, "label", "WeaponStats.ColName".Translate(), ww, LABEL_WIDTH);
-            ww += LABEL_WIDTH;
             foreach (colDef h in otherHeaders)
             {
                 printCellSort(WeaponsTab.Other, h.property, ("WeaponStats.Col" + h.label).Translate(), ww);
@@ -406,8 +398,6 @@ namespace WeaponStats
             int num = 0;
             int ww = GetStartingWidth();
             DrawCommon(-1, inRect.width);
-            printCellSort(WeaponsTab.Apparel, "label", "WeaponStats.ColName".Translate(), ww, LABEL_WIDTH);
-            ww += LABEL_WIDTH;
             foreach (colDef h in apparelHeaders)
             {
                 printCellSort(WeaponsTab.Apparel, h.property, ("WeaponStats.Col" + h.label).Translate(), ww);
@@ -440,8 +430,6 @@ namespace WeaponStats
             int num = 0;
             int ww = GetStartingWidth();
             DrawCommon(-1, inRect.width);
-            printCellSort(WeaponsTab.Other, "label", "Name", ww, LABEL_WIDTH);
-            ww += LABEL_WIDTH;
             foreach (colDef h in toolHeaders)
             {
                 printCellSort(WeaponsTab.Tools, h.property, h.label, ww);
@@ -620,6 +608,8 @@ namespace WeaponStats
             ww += STAT_WIDTH;
             if (this.ce)
             {
+                printCell(t.dps, num, ww);
+                ww += STAT_WIDTH;
                 printCell(Math.Round(t.marketValue, 1), num, ww);
                 ww += STAT_WIDTH;
                 printCell(t.maxRange, num, ww);
@@ -760,9 +750,9 @@ namespace WeaponStats
             ww += STAT_WIDTH;
             printCell(Math.Round(t.marketValue, 1), num, ww);
             ww += STAT_WIDTH;
-            printCell(Math.Round(t.armorBlunt * 100, 1), num, ww, STAT_WIDTH, "%");
+            printCell(Math.Round(this.ce ? t.armorBlunt : t.armorBlunt * 100, 1), num, ww, STAT_WIDTH, "%");
             ww += STAT_WIDTH;
-            printCell(Math.Round(t.armorSharp * 100, 1), num, ww, STAT_WIDTH, "%");
+            printCell(Math.Round(this.ce ? t.armorSharp : t.armorSharp * 100, 1), num, ww, STAT_WIDTH, "%");
             ww += STAT_WIDTH;
             printCell(Math.Round(t.armorHeat * 100, 1), num, ww, STAT_WIDTH, "%");
             ww += STAT_WIDTH;

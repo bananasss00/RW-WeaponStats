@@ -78,7 +78,8 @@ namespace WeaponStats
             Grenades,
             Other,
             Apparel,
-            Tools
+            Tools,
+            //Turrets // changes from steam version 21 jul 2021 (not used, commenting)
         }
 
         private WeaponsTab curTab = WeaponsTab.Ranged;
@@ -485,6 +486,7 @@ namespace WeaponStats
                     Dialog_WeaponDebug dlg = new Dialog_WeaponDebug(t, w);
                     Find.WindowStack.Add(dlg);
                 }
+                Widgets.InfoCardButton(rowWidth - 40, ROW_HEIGHT * rowNum, t);
             }
             else
             {
@@ -1443,8 +1445,8 @@ namespace WeaponStats
 
         public override void DoWindowContents(Rect rect)
         {
-            base.DoWindowContents(rect);
-            this.windowRect.width += 100;
+            //this.windowRect.width += 100;
+            this.windowRect.width = 1200; // changes from steam version 21 jul 2021
             rect.yMin += 35;
 
             if (this.listUpdateNext < Find.TickManager.TicksGame)

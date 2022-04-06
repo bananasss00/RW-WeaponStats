@@ -11,7 +11,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
-    <OutputPath>../../1.2/Assemblies</OutputPath>
+    <OutputPath>..\..\1.3\Assemblies\</OutputPath>
     <BaseIntermediateOutputPath>./obj/</BaseIntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -34,7 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp_publicized">
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\public_access_all\Assembly-CSharp_publicized.dll</HintPath>
+      <HintPath>..\..\..\..\#PACKAGES_1.3#\publicized_assemblies\Assembly-CSharp_publicized.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -46,19 +46,19 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\#PACKAGES_1.3#\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\..\#PACKAGES_1.3#\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>..\..\..\..\#PACKAGES_1.3#\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>..\..\..\..\#PACKAGES_1.3#\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

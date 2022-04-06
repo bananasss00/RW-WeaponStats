@@ -12,52 +12,37 @@ namespace WeaponStats
         // Find.CurrentMap.listerThings.ThingsInGroup(ThingRequestGroup.Weapon)
         // Find.CurrentMap.listerThings.ThingsInGroup(ThingRequestGroup.Apparel)
         // Find.CurrentMap.listerThings.ThingsInGroup(ThingRequestGroup.Corpse)
-        // thing => thing.def.IsWeapon && thing.def.tradeability.TraderCanSell()
 
-        // In HSK ThingsInGroup return 0 elements
-        // def.IsWeapon & def.IsApparel work fine for vanilla and HSK
+        public static IEnumerable<Thing> Weapons() => listWeapons;
 
-        public static IEnumerable<Thing> Weapons(bool onMap = true)
+        public static IEnumerable<Thing> Apparels() => listApparels;
+
+        public static IEnumerable<Thing> Corpses() => listCorpses;
+
+        public static void Update()
         {
-            var lister = onMap ? Find.CurrentMap?.listerThings : All;
-            if (lister == null) return Enumerable.Empty<Thing>();
-            return lister.AllThings.Where(thing => thing.def.IsWeapon);
-            //return lister.AllThings.Where(d => d.def.IsWeapon && (d.def.tradeability.TraderCanSell() || (d.def.weaponTags != null && d.def.weaponTags.Contains("TurretGun"))));
-        }
-
-        public static IEnumerable<Thing> Apparels(bool onMap = true)
-        {
-            var lister = onMap ? Find.CurrentMap?.listerThings : All;
-            if (lister == null) return Enumerable.Empty<Thing>();
-            return lister.AllThings.Where(thing => thing.def.IsApparel);
-        }
-
-        public static IEnumerable<Thing> Corpses()
-        {
-            var lister = Find.CurrentMap?.listerThings;
-            if (lister == null) return Enumerable.Empty<Thing>();
-            return lister.AllThings.Where(thing => thing.def.IsCorpse);
-        }
-
-        public static ListerThings All
-        {
-            get
+            if (NeedUpdate)
             {
-                if (listerFakeAll == null)
+                var lister = Find.CurrentMap?.listerThings;
+                if (lister == null)
                 {
-                    listerFakeAll = new ListerThings(ListerThingsUse.Global);
-                    foreach (var d in DefDatabase<ThingDef>.AllDefsListForReading.Where(d =>
-                        d.IsWeapon || d.IsApparel || d.IsCorpse))
-                    {
-                        Thing thing = ThingMaker.MakeThing(d, d.MadeFromStuff ? GenStuff.DefaultStuffFor(d) : null);
-                        listerFakeAll.Add(thing);
-                    }
+                    listWeapons = new List<Thing>();
+                    listApparels = new List<Thing>();
+                    listCorpses = new List<Thing>();
                 }
-
-                return listerFakeAll;
+                else
+                {
+                    listWeapons = lister.AllThings.Where(thing => thing.def.IsWeapon).ToList();
+                    listApparels = lister.AllThings.Where(thing => thing.def.IsApparel).ToList();
+                    listCorpses = lister.AllThings.Where(thing => thing.def.IsCorpse).ToList();
+                }
+                latestUpdateTick = Find.TickManager.TicksGame;
             }
         }
 
-        private static ListerThings listerFakeAll = null;
+        private static bool NeedUpdate => Math.Abs(Find.TickManager.TicksGame - latestUpdateTick) >= 60;
+
+        private static int latestUpdateTick;
+        private static List<Thing> listWeapons, listApparels, listCorpses;
     }
 }

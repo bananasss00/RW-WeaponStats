@@ -964,6 +964,9 @@ namespace WeaponStats
             Apparel tmpApparel;
             ToolWeapon tmpTool;
             WeaponsTab tb;
+
+            Lister.Update();
+
             if (this.showGround)
             {
                 foreach (Thing th in Lister.Weapons())

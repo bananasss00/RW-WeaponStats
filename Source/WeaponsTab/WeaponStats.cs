@@ -1024,28 +1024,6 @@ namespace WeaponStats
                 }
             }
 
-            // Corpses
-            if (this.showEquippedC)
-            {
-                Corpse corpse;
-                foreach (Thing th in Lister.Corpses())
-                {
-                    corpse = (Corpse) th;
-                    if (corpse.InnerPawn.apparel != null && !th.Position.Fogged(Find.CurrentMap))
-                    {
-                        foreach (RimWorld.Apparel pth in corpse.InnerPawn.apparel.WornApparel)
-                        {
-                            tmpApparel = new Apparel();
-                            tmpApparel.fillFromThing(pth, this.ce);
-                            tmpApparel.pawn = corpse.InnerPawn.Name.ToString();
-                            tmpApparel.pawnType = "corpse";
-                            apparelList.Add(tmpApparel);
-                            apparelCount++;
-                        }
-                    }
-                }
-            }
-
             // Weapons equipped by pawns
             Faction playerFaction;
             try
@@ -1060,8 +1038,16 @@ namespace WeaponStats
             try
             {
                 string pawnType = "";
-                foreach (Pawn pw in Find.CurrentMap.mapPawns.AllPawnsSpawned.ToList())
+                foreach (Thing thing in Find.CurrentMap.listerThings.AllThings)
                 {
+                    Pawn pw = null;
+                    if (thing is Corpse corpse)
+                        pw = corpse.InnerPawn;
+                    else if (thing is Pawn)
+                        pw = (Pawn)thing;
+                    else
+                        continue;
+
                     if (pw == null || pw.AnimalOrWildMan())
                     {
                         continue;

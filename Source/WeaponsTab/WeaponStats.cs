@@ -70,6 +70,9 @@ namespace WeaponStats
         private string tempUnit;
         private float tempCoeff;
 
+        private bool dragDeselect = false;
+        private bool dragSelect = false;
+
         private enum WeaponsTab : byte
         {
             None,
@@ -531,21 +534,39 @@ namespace WeaponStats
                     Widgets.DrawHighlight(rowRect);
                     GUI.color = backupColor;
                 }
-                if (Widgets.ButtonInvisible(rowRect))
+                if (Mouse.IsOver(rowRect))
                 {
-                    if (Event.current.shift)
+                    if (Event.current.type == EventType.MouseDown)
                     {
-                        if (t.Map == null)
-                            ;
-                        else if (isSelected)
-                            Find.Selector.Deselect(t);
+                        if (Event.current.shift)
+                        {
+                            if (!t.def.selectable || !t.Spawned)
+                                ;
+                            else if (isSelected)
+                            {
+                                Find.Selector.Deselect(t);
+                                dragDeselect = true;
+                            }
+                            else
+                            {
+                                Find.Selector.Select(t);
+                                dragSelect = true;
+                            }
+                        }
                         else
-                            Find.Selector.Select(t);
+                        {
+                            RimWorld.Planet.GlobalTargetInfo gti = new RimWorld.Planet.GlobalTargetInfo(t);
+                            CameraJumper.TryJumpAndSelect(gti);
+                        }
                     }
-                    else
+                    if (Event.current.type == EventType.MouseDrag)
                     {
-                        RimWorld.Planet.GlobalTargetInfo gti = new RimWorld.Planet.GlobalTargetInfo(t);
-                        CameraJumper.TryJumpAndSelect(gti);
+                        if (!t.def.selectable || !t.Spawned)
+                            ;
+                        else if (dragSelect)
+                            Find.Selector.Select(t, false);
+                        else if (dragDeselect)
+                            Find.Selector.Deselect(t);
                     }
                 }
 
@@ -1431,6 +1452,12 @@ namespace WeaponStats
 
         public override void DoWindowContents(Rect rect)
         {
+            if (!Input.GetMouseButton(0))
+            {
+                this.dragSelect = false;
+                this.dragDeselect = false;
+            }
+
             //this.windowRect.width += 100;
             this.windowRect.width = 1200; // changes from steam version 21 jul 2021
             rect.yMin += 35;
